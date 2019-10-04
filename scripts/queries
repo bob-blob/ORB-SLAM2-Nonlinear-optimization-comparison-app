@@ -1,0 +1,213 @@
+select * from libraries where pose_optim_lib='g2o' and lba_optim_lib='g2o' and sim3_optim_lib='g2o' and graph_optim_lib='g2o';
+
+
+#insert into advanced_ceres (minimizer_type, trust_region_type, dogleg_type, initial_trust_region_radius, line_search_direction_type, line_search_type,
+#							nonlinear_conjugate_gradient_type, gradient_tolerance, function_tolerance, linear_solver_type, max_num_iterations,
+#							minimizer_progress_to_stdout, num_threads, eta, max_solver_time_in_seconds, use_nonmonotonic_steps) values \
+#	('TRUST_REGION', 'LEVENBERG_MARQUARDT', ) returning ceres_adv_id;
+
+insert into advanced_ceres (minimizer_type, trust_region_type, initial_trust_region_radius, gradient_tolerance, function_tolerance, linear_solver_type, max_num_iterations,
+							minimizer_progress_to_stdout, num_threads, eta, max_solver_time_in_seconds, use_nonmonotonic_steps) values ('TRUST_REGION', 'LEVENBERG_MARQUARDT', 1e4, 1e-16, 1e-16, 'SPARSE_SCHUR', 5, TRUE, 1, 1e-2, 1e32, TRUE) returning ceres_adv_id;
+
+insert into advanced (pose_ceres, pose_g2o, lba_ceres, lba_g2o, sim3_ceres, sim3_g2o, graph_ceres, graph_g2o) values \
+	(conf, 1, conf, 1, conf, 1, conf, 1) returning advanced_id;
+
+insert into results (trajectory_path, tracking_time_average, tracking_time_median) values \
+	(conf1, conf2, conf3) returning result_id;	
+
+insert into experiments (dataset_name, libraries, methods, advanced, results) values ('mono_tum', 1, 2, 3, 1);
+
+insert into libraries (pose_optim_lib, lba_optim_lib, sim3_optim_lib, graph_optim_lib) values ('g2o', 'g2o', 'g2o', 'g2o'),
+	('g2o', 'g2o', 'g2o', 'ceres'),
+	('g2o', 'g2o', 'ceres', 'g2o'),
+	('g2o', 'g2o', 'ceres', 'ceres'),
+	('g2o', 'ceres', 'g2o', 'g2o'),
+	('g2o', 'ceres', 'g2o', 'ceres'),
+	('g2o', 'ceres', 'ceres', 'g2o'),
+	('g2o', 'ceres', 'ceres', 'ceres'),
+	('ceres', 'g2o', 'g2o', 'g2o'),
+	('ceres', 'g2o', 'g2o', 'ceres'),
+	('ceres', 'g2o', 'ceres', 'g2o'),
+	('ceres', 'g2o', 'ceres', 'ceres'),
+	('ceres', 'ceres', 'g2o', 'g2o'),
+	('ceres', 'ceres', 'g2o', 'ceres'),
+	('ceres', 'ceres', 'ceres', 'g2o'),
+	('ceres', 'ceres', 'ceres', 'ceres');
+
+insert into methods (pose_optim_method, lba_optim_method, sim3_optim_method, graph_optim_method) values ('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Dogleg'),
+	('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Gauss-Newton', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Gauss-Newton', 'Dogleg'),
+	('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Dogleg', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Dogleg', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Levenberg-Marquardt', 'Dogleg', 'Dogleg'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Levenberg-Marquardt', 'Dogleg'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Gauss-Newton', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Gauss-Newton', 'Dogleg'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Dogleg', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Dogleg', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Gauss-Newton', 'Dogleg', 'Dogleg'),
+	('Levenberg-Marquardt', 'Dogleg', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Dogleg', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Dogleg', 'Levenberg-Marquardt', 'Dogleg'),
+	('Levenberg-Marquardt', 'Dogleg', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Dogleg', 'Gauss-Newton', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Dogleg', 'Gauss-Newton', 'Dogleg'),
+	('Levenberg-Marquardt', 'Dogleg', 'Dogleg', 'Levenberg-Marquardt'),
+	('Levenberg-Marquardt', 'Dogleg', 'Dogleg', 'Gauss-Newton'),
+	('Levenberg-Marquardt', 'Dogleg', 'Dogleg', 'Dogleg'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Dogleg'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Gauss-Newton', 'Gauss-Newton'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Gauss-Newton', 'Dogleg'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Dogleg', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Dogleg', 'Gauss-Newton'),
+	('Gauss-Newton', 'Levenberg-Marquardt', 'Dogleg', 'Dogleg'),
+	('Gauss-Newton', 'Gauss-Newton', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Gauss-Newton', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Gauss-Newton', 'Gauss-Newton', 'Levenberg-Marquardt', 'Dogleg'),
+	('Gauss-Newton', 'Gauss-Newton', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Gauss-Newton', 'Gauss-Newton', 'Gauss-Newton'),
+	('Gauss-Newton', 'Gauss-Newton', 'Gauss-Newton', 'Dogleg'),
+	('Gauss-Newton', 'Gauss-Newton', 'Dogleg', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Gauss-Newton', 'Dogleg', 'Gauss-Newton'),
+	('Gauss-Newton', 'Gauss-Newton', 'Dogleg', 'Dogleg'),
+	('Gauss-Newton', 'Dogleg', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Dogleg', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Gauss-Newton', 'Dogleg', 'Levenberg-Marquardt', 'Dogleg'),
+	('Gauss-Newton', 'Dogleg', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Dogleg', 'Gauss-Newton', 'Gauss-Newton'),
+	('Gauss-Newton', 'Dogleg', 'Gauss-Newton', 'Dogleg'),
+	('Gauss-Newton', 'Dogleg', 'Dogleg', 'Levenberg-Marquardt'),
+	('Gauss-Newton', 'Dogleg', 'Dogleg', 'Gauss-Newton'),
+	('Gauss-Newton', 'Dogleg', 'Dogleg', 'Dogleg'),
+	('Dogleg', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Dogleg', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Dogleg', 'Levenberg-Marquardt', 'Levenberg-Marquardt', 'Dogleg'),
+	('Dogleg', 'Levenberg-Marquardt', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Dogleg', 'Levenberg-Marquardt', 'Gauss-Newton', 'Gauss-Newton'),
+	('Dogleg', 'Levenberg-Marquardt', 'Gauss-Newton', 'Dogleg'),
+	('Dogleg', 'Levenberg-Marquardt', 'Dogleg', 'Levenberg-Marquardt'),
+	('Dogleg', 'Levenberg-Marquardt', 'Dogleg', 'Gauss-Newton'),
+	('Dogleg', 'Levenberg-Marquardt', 'Dogleg', 'Dogleg'),
+	('Dogleg', 'Gauss-Newton', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Dogleg', 'Gauss-Newton', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Dogleg', 'Gauss-Newton', 'Levenberg-Marquardt', 'Dogleg'),
+	('Dogleg', 'Gauss-Newton', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Dogleg', 'Gauss-Newton', 'Gauss-Newton', 'Gauss-Newton'),
+	('Dogleg', 'Gauss-Newton', 'Gauss-Newton', 'Dogleg'),
+	('Dogleg', 'Gauss-Newton', 'Dogleg', 'Levenberg-Marquardt'),
+	('Dogleg', 'Gauss-Newton', 'Dogleg', 'Gauss-Newton'),
+	('Dogleg', 'Gauss-Newton', 'Dogleg', 'Dogleg'),
+	('Dogleg', 'Dogleg', 'Levenberg-Marquardt', 'Levenberg-Marquardt'),
+	('Dogleg', 'Dogleg', 'Levenberg-Marquardt', 'Gauss-Newton'),
+	('Dogleg', 'Dogleg', 'Levenberg-Marquardt', 'Dogleg'),
+	('Dogleg', 'Dogleg', 'Gauss-Newton', 'Levenberg-Marquardt'),
+	('Dogleg', 'Dogleg', 'Gauss-Newton', 'Gauss-Newton'),
+	('Dogleg', 'Dogleg', 'Gauss-Newton', 'Dogleg'),
+	('Dogleg', 'Dogleg', 'Dogleg', 'Levenberg-Marquardt'),
+	('Dogleg', 'Dogleg', 'Dogleg', 'Gauss-Newton'),
+	('Dogleg', 'Dogleg', 'Dogleg', 'Dogleg');
+
+
+SELECT ceres_adv_id FROM advanced_ceres WHERE minimizer_type = 'TRUST_REGION' and 
+               trust_region_strategy_type ='LEVENBERG_MARQUARDT' and 
+               dogleg_type is NULL and 
+               initial_trust_region_radius =1e4 and 
+               line_search_direction_type is NULL and 
+               line_search_type is NULL and 
+               nonlinear_conjugate_gradient_type is NULL and 
+               gradient_tolerance =1e-16 and 
+               function_tolerance =1e-16 and
+               linear_solver_type ='SPARSE_SCHUR' and 
+               max_num_iterations =1 and 
+               minimizer_progress_to_stdout =FALSE and 
+               num_threads =1 and 
+               eta =1e-2 and 
+               max_solver_time_in_seconds =1e32 and 
+               use_nonmonotonic_steps =FALSE;
+
+#select ceres_adv_id from advanced_ceres where minimizer_type='TRUST_REGION' and trust_region_type='LEVENBERG_MARQUARDT' and dogleg_type is NULL and initial_trust_region_radius=1e4 and line_search_direction_type is NULL and line_search_type is NULL and nonlinear_conjugate_gradient_type is NULL and gradient_tolerance=1e-16 and function_tolerance=1e-16 and linear_solver_type='SPARSE_SCHUR' and max_num_iterations=5 and minimizer_progress_to_stdout=TRUE and num_threads=1 and eta=1e-2 and max_solver_time_in_seconds=1e32 and use_nonmonotonic_steps=TRUE;
+
+INSERT INTO advanced_ceres (minimizer_type, trust_region_type, dogleg_type, initial_trust_region_radius, line_search_direction_type, line_search_type, nonlinear_conjugate_gradient_type,
+                            gradient_tolerance, function_tolerance, linear_solver_type, max_num_iterations, minimizer_progress_to_stdout, num_threads, eta, max_solver_time_in_seconds, use_nonmonotonic_steps) VALUES 
+                            ('TRUST_REGION', 'LEVENBERG_MARQUARDT', NULL, "1e4", NULL,
+                            NULL, NULL, 1e-16, 1e-16, 'SPARSE_SCHUR', 4, FALSE, 1, 1e-2, 1e32, TRUE) returning ceres_adv_id;
+
+
+
+# Create Tables 
+CREATE TABLE libraries(
+library_id serial PRIMARY KEY,
+pose_optim_lib VARCHAR (30) NOT NULL,
+lba_optim_lib varchar (30) not null,
+sim3_optim_lib varchar (30) not null, graph_optim_lib varchar (30) not null);
+
+
+ CREATE TABLE methods(
+method_id serial PRIMARY KEY,
+pose_optim_method VARCHAR (60) NOT NULL,
+lba_optim_method varchar (60) not null,
+sim3_optim_method varchar (60) not null, graph_optim_method varchar (60) not null);
+
+create table results(
+result_id serial primary key,
+trajectory_path varchar (255) not null,
+tracking_time_average double precision not null,
+tracking_time_median double precision not null);
+
+create table advanced_ceres(
+ceres_adv_id serial primary key,
+minimizer_type varchar (50) not null,
+trust_region_type varchar (50),
+dogleg_type varchar (50),
+initial_trust_region_radius double precision,
+line_search_direction_type varchar (50),
+line_search_type varchar(50),
+nonlinear_conjugate_gradient_type varchar(50),
+gradient_tolerance double precision not null,
+function_tolerance double precision not null,
+linear_solver_type varchar (50) not null,
+max_num_iterations integer not null,
+minimizer_progress_to_stdout boolean not null,
+num_threads integer not null,
+eta double precision not null,
+max_solver_time_in_seconds double precision not null,
+use_nonmonotonic_steps boolean not null);
+
+insert into advanced_ceres (minimizer_type, trust_region_type, initial_trust_region_radius, gradient_tolerance, function_tolerance, linear_solver_type, max_num_iterations,
+							minimizer_progress_to_stdout, num_threads, eta, max_solver_time_in_seconds, use_nonmonotonic_steps) values ('TRUST_REGION', 'LEVENBERG_MARQUARDT', 1e4, 1e-16, 1e-16, 'SPARSE_SCHUR', 5, TRUE, 1, 1e-2, 1e32, TRUE) returning ceres_adv_id;
+
+create table advanced_g2o(
+g2o_adv_id serial primary key,
+method varchar (50) not null);
+
+insert into advanced_g2o (method) values ('levenberg-marquardt');
+insert into advanced_g2o (method) values ('gauss-newton');
+insert into advanced_g2o (method) values ('dogleg');
+
+create table advanced(
+advanced_id serial primary key,
+pose_ceres integer references advanced_ceres,
+pose_g2o integer references advanced_g2o,
+lba_ceres integer references advanced_ceres,
+lba_g2o integer references advanced_g2o,
+sim3_ceres integer references advanced_ceres,
+sim3_g2o integer references advanced_g2o,
+graph_ceres integer references advanced_ceres,
+graph_g2o integer references advanced_g2o);
+
+create table experiments(
+experiment_id serial primary key,
+dataset_name varchar (60) not null,
+libraries integer references libraries,
+methods integer references methods,
+advanced integer references advanced,
+results integer references results ON DELETE CASCADE);
