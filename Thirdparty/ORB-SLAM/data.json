@@ -1,0 +1,86 @@
+{
+    "EssentialGraphOptimization": {
+        "advanced": {
+            "eta": "1e-2",
+            "function_tolerance": "1e-16",
+            "gradient_tolerance": "1e-16",
+            "line_search_direction_type": "LBFGS",
+            "line_search_type": "WOLFE",
+            "linear_solver_type": "SPARSE_SCHUR",
+            "max_num_iterations": 5,
+            "max_solver_time_in_seconds": "1e32",
+            "minimizer_progress_to_stdout": false,
+            "minimizer_type": "LINE_SEARCH",
+            "nonlinear_conjugate_gradient_type": "FLETCHER_REEVES",
+            "num_threads": 1,
+            "use_nonmonotonic_steps": false
+        },
+        "main": [
+            "ceres",
+            "Levenberg-Marquardt"
+        ]
+    },
+    "LocalBundleAdjustment": {
+        "advanced": {
+            "eta": "1e-2",
+            "function_tolerance": "1e-16",
+            "gradient_tolerance": "1e-16",
+            "line_search_direction_type": "LBFGS",
+            "line_search_type": "WOLFE",
+            "linear_solver_type": "SPARSE_SCHUR",
+            "max_num_iterations": 5,
+            "max_solver_time_in_seconds": "1e32",
+            "minimizer_progress_to_stdout": false,
+            "minimizer_type": "LINE_SEARCH",
+            "nonlinear_conjugate_gradient_type": "FLETCHER_REEVES",
+            "num_threads": 1,
+            "use_nonmonotonic_steps": false
+        },
+        "main": [
+            "ceres",
+            "Levenberg-Marquardt"
+        ]
+    },
+    "PoseOptimization": {
+        "advanced": {
+            "eta": "1e-2",
+            "function_tolerance": "1e-16",
+            "gradient_tolerance": "1e-16",
+            "line_search_direction_type": "LBFGS",
+            "line_search_type": "WOLFE",
+            "linear_solver_type": "SPARSE_SCHUR",
+            "max_num_iterations": 10,
+            "max_solver_time_in_seconds": "1e32",
+            "minimizer_progress_to_stdout": false,
+            "minimizer_type": "LINE_SEARCH",
+            "nonlinear_conjugate_gradient_type": "FLETCHER_REEVES",
+            "num_threads": 1,
+            "use_nonmonotonic_steps": false
+        },
+        "main": [
+            "ceres",
+            "Levenberg-Marquardt"
+        ]
+    },
+    "Sim3Optimization": {
+        "advanced": {
+            "eta": "1e-2",
+            "function_tolerance": "1e-16",
+            "gradient_tolerance": "1e-16",
+            "line_search_direction_type": "LBFGS",
+            "line_search_type": "WOLFE",
+            "linear_solver_type": "SPARSE_SCHUR",
+            "max_num_iterations": 5,
+            "max_solver_time_in_seconds": "1e32",
+            "minimizer_progress_to_stdout": false,
+            "minimizer_type": "LINE_SEARCH",
+            "nonlinear_conjugate_gradient_type": "FLETCHER_REEVES",
+            "num_threads": 1,
+            "use_nonmonotonic_steps": false
+        },
+        "main": [
+            "ceres",
+            "Levenberg-Marquardt"
+        ]
+    }
+}

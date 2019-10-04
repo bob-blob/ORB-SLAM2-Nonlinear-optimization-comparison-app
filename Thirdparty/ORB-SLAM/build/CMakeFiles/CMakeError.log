@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/borisqa/Documents/orb-compiled/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c3fc5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_c3fc5.dir/build.make CMakeFiles/cmTC_c3fc5.dir/build
+make[1]: Entering directory '/home/borisqa/Documents/orb-compiled/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c3fc5.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -Wall  -O3 -march=native     -o CMakeFiles/cmTC_c3fc5.dir/CheckSymbolExists.c.o   -c /home/borisqa/Documents/orb-compiled/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_c3fc5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c3fc5.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall  -O3 -march=native      -rdynamic CMakeFiles/cmTC_c3fc5.dir/CheckSymbolExists.c.o  -o cmTC_c3fc5 
+CMakeFiles/cmTC_c3fc5.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text.startup+0x3): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_c3fc5.dir/build.make:97: recipe for target 'cmTC_c3fc5' failed
+make[1]: *** [cmTC_c3fc5] Error 1
+make[1]: Leaving directory '/home/borisqa/Documents/orb-compiled/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_c3fc5/fast' failed
+make: *** [cmTC_c3fc5/fast] Error 2
+
+File /home/borisqa/Documents/orb-compiled/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/borisqa/Documents/orb-compiled/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_00cde/fast"
+/usr/bin/make -f CMakeFiles/cmTC_00cde.dir/build.make CMakeFiles/cmTC_00cde.dir/build
+make[1]: Entering directory '/home/borisqa/Documents/orb-compiled/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_00cde.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -Wall  -O3 -march=native  -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_00cde.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_00cde
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_00cde.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall  -O3 -march=native  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_00cde.dir/CheckFunctionExists.c.o  -o cmTC_00cde -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_00cde.dir/build.make:97: recipe for target 'cmTC_00cde' failed
+make[1]: *** [cmTC_00cde] Error 1
+make[1]: Leaving directory '/home/borisqa/Documents/orb-compiled/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_00cde/fast' failed
+make: *** [cmTC_00cde/fast] Error 2
+
+
