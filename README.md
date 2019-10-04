@@ -1,5 +1,5 @@
 # Comparison Framework for Nonlinear optimization methods in ORB-SLAM
-Application that allows user to launch ORB-SLAM tasks with configurable set of nonlinear optimization methods.
+Application that allows user to launch ORB-SLAM tasks with configurable set of nonlinear optimization methods. This app was developed as the part of the Bachelor Thesis project in Innopolis University under the supervision of Ilya Afanasyev in Robotics laboratory.
 
 Probably you'll need to fix some paths in order to get this thingy work. 
 
